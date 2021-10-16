@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">android_B19</string>
+    <string name="loading_article_text">Loading Articles...</string>
+    <string name="loading_webview_text">Loading...</string>
 </resources>
