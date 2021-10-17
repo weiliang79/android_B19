@@ -50,8 +50,8 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.FeedViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, FeedActivity.class);
-                intent.putExtra(FeedActivity.INTENT_URL, feedList.get(position));
+                Intent intent = new Intent(context, ItemsActivity.class);
+                intent.putExtra(ItemsActivity.INTENT_URL, feedList.get(position));
                 context.startActivity(intent);
             }
         });

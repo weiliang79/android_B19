@@ -14,23 +14,18 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class FeedViewModel extends ViewModel {
+public class ItemsViewModel extends ViewModel {
 
-    private Context context;
-    private MutableLiveData<Channel> articleListLive = null;
+    private MutableLiveData<Channel> mArticleListLive = null;
 
     public MutableLiveData<Channel> getChannel(){
-        if(articleListLive == null){
-            articleListLive = new MutableLiveData<>();
+        if(mArticleListLive == null){
+            mArticleListLive = new MutableLiveData<>();
         }
-        return articleListLive;
+        return mArticleListLive;
     }
 
-    private void setChannel(Channel channel) {
-        this.articleListLive.postValue(channel);
-    }
-
-    public void fetchFeed(Context context, String url){
+    public void fetchItems(Context context, String url){
 
         Parser parser = new Parser.Builder()
                 .build();
@@ -51,6 +46,10 @@ public class FeedViewModel extends ViewModel {
 
         parser.execute(url);
 
+    }
+
+    private void setChannel(Channel channel) {
+        this.mArticleListLive.postValue(channel);
     }
 
 }
