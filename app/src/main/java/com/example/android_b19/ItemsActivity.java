@@ -19,15 +19,15 @@ import android.widget.Toast;
 
 import com.prof.rssparser.Channel;
 
-public class FeedActivity extends AppCompatActivity {
+public class ItemsActivity extends AppCompatActivity {
 
     public final static String INTENT_URL = "url";
 
     private String url;
 
     private Toolbar toolbar;
-    private FeedViewModel feedViewModel;
-    private ArticlesAdapter mAdapter;
+    private ItemsViewModel mItemsViewModel;
+    private ItemsAdapter mAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView rvArticles;
     private ProgressBar progressBar;
@@ -35,9 +35,9 @@ public class FeedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feed);
+        setContentView(R.layout.activity_items);
 
-        toolbar = findViewById(R.id.toolbar_feed);
+        toolbar = findViewById(R.id.toolbar_items);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -46,14 +46,14 @@ public class FeedActivity extends AppCompatActivity {
         Intent intent = getIntent();
         url = intent.getStringExtra(INTENT_URL);
 
-        feedViewModel = new ViewModelProvider(this).get(FeedViewModel.class);
+        mItemsViewModel = new ViewModelProvider(this).get(ItemsViewModel.class);
 
         rvArticles = findViewById(R.id.rvArticles);
         rvArticles.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        progressBar = findViewById(R.id.pbFeed);
-        swipeRefreshLayout = findViewById(R.id.slFeed);
+        progressBar = findViewById(R.id.pbItems);
+        swipeRefreshLayout = findViewById(R.id.slItems);
 
-        feedViewModel.getChannel().observe(
+        mItemsViewModel.getChannel().observe(
                 this,
                 new Observer<Channel>() {
                     @Override
@@ -63,7 +63,7 @@ public class FeedActivity extends AppCompatActivity {
                                 setTitle(channel.getTitle());
                             }
                         }
-                        mAdapter = new ArticlesAdapter(getBaseContext(), channel.getArticles());
+                        mAdapter = new ItemsAdapter(getBaseContext(), channel.getArticles());
                         rvArticles.setAdapter(mAdapter);
                         mAdapter.notifyDataSetChanged();
                         progressBar.setVisibility(View.GONE);
@@ -80,12 +80,12 @@ public class FeedActivity extends AppCompatActivity {
                 mAdapter.getArticleList().clear();
                 mAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(true);
-                feedViewModel.fetchFeed(getApplicationContext(), url);
+                mItemsViewModel.fetchItems(getApplicationContext(), url);
             }
         });
 
         if(isNetworkAvailable()){
-            feedViewModel.fetchFeed(getApplicationContext(), url);
+            mItemsViewModel.fetchItems(getApplicationContext(), url);
         } else {
             Toast.makeText(getApplicationContext(), "Internet are not connected.", Toast.LENGTH_LONG).show();
         }

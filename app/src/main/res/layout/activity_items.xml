@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".FeedActivity">
+    tools:context=".ItemsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Android_B19.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_feed"
+            android:id="@+id/toolbar_items"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -22,7 +22,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/slFeed"
+        android:id="@+id/slItems"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -35,7 +35,7 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ProgressBar
-        android:id="@+id/pbFeed"
+        android:id="@+id/pbItems"
         style="@android:style/Widget.Holo.Light.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

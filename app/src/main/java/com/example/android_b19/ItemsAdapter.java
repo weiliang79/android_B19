@@ -22,15 +22,15 @@ import java.util.Locale;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ArticleViewHolder> {
+public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder> {
 
-    class ArticleViewHolder extends RecyclerView.ViewHolder {
+    class ItemsViewHolder extends RecyclerView.ViewHolder {
 
         final TextView title;
         final TextView pubDate;
         final ImageView image;
 
-        ArticleViewHolder(View itemView){
+        ItemsViewHolder(View itemView){
             super(itemView);
             title = itemView.findViewById(R.id.tvArticleTitle);
             pubDate = itemView.findViewById(R.id.tvArticlePubDate);
@@ -41,30 +41,30 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Articl
 
     private Context context;
     private LayoutInflater inflater;
-    private List<Article> articleList;
+    private List<Article> mArticleList;
 
-    public ArticlesAdapter(Context context, List<Article> articleList){
+    public ItemsAdapter(Context context, List<Article> articleList){
         this.context = context;
         this.inflater = LayoutInflater.from(context);
-        this.articleList = articleList;
+        this.mArticleList = articleList;
     }
 
     public List<Article> getArticleList(){
-        return articleList;
+        return mArticleList;
     }
 
     @NonNull
     @Override
-    public ArticleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ItemsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_article, parent, false);
-        return new ArticleViewHolder(view);
+        return new ItemsViewHolder(view);
     }
 
     @SuppressLint("SetJavascriptEnabled")
     @Override
-    public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ItemsViewHolder holder, int position) {
 
-        Article currentArticle = articleList.get(position);
+        Article currentArticle = mArticleList.get(position);
         String pubDateString = "";
 
         try{
@@ -105,7 +105,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Articl
 
     @Override
     public int getItemCount() {
-        return articleList.size();
+        return mArticleList.size();
     }
 
 }
