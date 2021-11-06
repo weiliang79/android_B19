@@ -2,6 +2,12 @@ package com.example.android_b19;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,12 +16,21 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 
+import com.google.android.material.navigation.NavigationView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private DrawerLayout drawer;
+
+    private AppBarConfiguration appBarConfiguration;
+    private NavigationView navigationView;
+    private NavController navController;
+    private Fragment navHostFragment;
+
     private RecyclerView rvFeeds;
 
     @Override
@@ -23,17 +38,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = findViewById(R.id.toolbar_main);
+        //toolbar
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        List<String> feedsList = new ArrayList<>();
-        feedsList.add("https://www.androidauthority.com/feed");
-        feedsList.add("http://rss.cnn.com/rss/edition.rss");
-        feedsList.add("https://www.thestar.com.my/rss/News");
+        //drawer layout
+        drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_home, R.id.nav_feeds)
+                .setDrawerLayout(drawer)
+                .build();
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
 
-        rvFeeds = findViewById(R.id.rvFeeds);
-        rvFeeds.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rvFeeds.setAdapter(new FeedsAdapter(this, feedsList));
+        navHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
 
     }
 
@@ -44,6 +64,13 @@ public class MainActivity extends AppCompatActivity {
             activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         }
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+                || super.onSupportNavigateUp();
     }
 
 }

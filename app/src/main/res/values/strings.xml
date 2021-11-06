@@ -2,4 +2,6 @@
     <string name="app_name">android_B19</string>
     <string name="loading_article_text">Loading Articles...</string>
     <string name="loading_webview_text">Loading...</string>
+    <string name="nav_home_title">Home</string>
+    <string name="nav_feed_title">Feeds</string>
 </resources>
