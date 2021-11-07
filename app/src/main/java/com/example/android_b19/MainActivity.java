@@ -15,13 +15,18 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private FirebaseAuth auth;
 
     private Toolbar toolbar;
     private DrawerLayout drawer;
@@ -37,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        auth = FirebaseAuth.getInstance();
 
         //toolbar
         toolbar = findViewById(R.id.toolbar);
@@ -55,6 +62,16 @@ public class MainActivity extends AppCompatActivity {
 
         navHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if(currentUser == null){
+            Toast.makeText(this, "null user", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public boolean isNetworkAvailable(){
