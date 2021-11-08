@@ -8,21 +8,18 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.widget.Toast;
 
+import com.example.android_b19.ui.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = auth.getCurrentUser();
         if(currentUser == null){
-            Toast.makeText(this, "null user", Toast.LENGTH_SHORT).show();
+            // start login flow
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
     }
 
