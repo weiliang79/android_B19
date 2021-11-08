@@ -14,4 +14,9 @@
         android:name="com.example.android_b19.FeedFragment"
         android:label="@string/nav_feed_title" />
 
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.android_b19.SettingFragment"
+        android:label="@string/setting_nav_title" />
+
 </navigation>

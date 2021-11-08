@@ -6,4 +6,8 @@
     <string name="nav_feed_title">Feeds</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="account_title">Account</string>
+    <string name="logout_title">Logout</string>
+    <string name="logout_key">logout</string>
+    <string name="setting_nav_title">Settings</string>
 </resources>

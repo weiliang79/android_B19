@@ -4,15 +4,32 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_baseline_home"
-            android:title="@string/nav_home_title" />
 
-        <item
-            android:id="@+id/nav_feeds"
-            android:icon="@drawable/ic_baseline_rss_feed"
-            android:title="@string/nav_feed_title" />
+        <item android:title="@string/nav_feed_title">
+            <menu>
+                <item
+                    android:id="@+id/nav_home"
+                    android:icon="@drawable/ic_baseline_home"
+                    android:title="@string/nav_home_title" />
+
+                <item
+                    android:id="@+id/nav_feeds"
+                    android:icon="@drawable/ic_baseline_rss_feed"
+                    android:title="@string/nav_feed_title" />
+            </menu>
+        </item>
+
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item android:title="@string/setting_nav_title">
+            <menu>
+                <item
+                    android:id="@+id/nav_settings"
+                    android:icon="@drawable/ic_baseline_settings"
+                    android:title="@string/setting_nav_title" />
+            </menu>
+        </item>
     </group>
 
 </menu>
