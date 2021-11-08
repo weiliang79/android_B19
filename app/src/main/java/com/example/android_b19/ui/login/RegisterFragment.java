@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,15 +64,48 @@ public class RegisterFragment extends Fragment {
         mButtonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = String.valueOf(mEditTextName.getText());
-                String age = String.valueOf(mEditTextAge.getText());
-                String email = String.valueOf(mEditTextEmail.getText());
-                String password = String.valueOf(mEditTextPassword.getText());
-                User user = new User(name, age, email);
-                // TODO: 11/8/2021 add validateForm() here
-                register(user, password);
+                validateAndRegister();
             }
         });
+    }
+
+    private void validateAndRegister() {
+        String name = mEditTextName.getText().toString().trim();
+        String age = mEditTextAge.getText().toString().trim();
+        String email = mEditTextEmail.getText().toString().trim();
+        String password = mEditTextPassword.getText().toString().trim();
+        User user = new User(name, age, email);
+        if (name.isEmpty()) {
+            mEditTextName.setError("Name is required!");
+            mEditTextName.requestFocus();
+            return;
+        }
+        if (age.isEmpty()) {
+            mEditTextAge.setError("Age is required!");
+            mEditTextAge.requestFocus();
+            return;
+        }
+        if (email.isEmpty()) {
+            mEditTextEmail.setError("Email is required!");
+            mEditTextEmail.requestFocus();
+            return;
+        }
+        if (password.isEmpty()) {
+            mEditTextPassword.setError("Password is required!");
+            mEditTextPassword.requestFocus();
+            return;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            mEditTextEmail.setError("Please provide valid email");
+            mEditTextEmail.requestFocus();
+            return;
+        }
+        if (password.length() < 6) {
+            mEditTextPassword.setError("Password should be at least 6 characters");
+            mEditTextPassword.requestFocus();
+            return;
+        }
+        register(user, password);
     }
 
     private void register(User user, String password) {

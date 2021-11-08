@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,10 +61,7 @@ public class LoginFragment extends Fragment {
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = String.valueOf(mEditTextEmail.getText());
-                String password = String.valueOf(mEditPassword.getText());
-                // TODO: 11/8/2021 add validateForm() here
-                login(email, password);
+                validateAndLogin();
             }
         });
 
@@ -72,7 +70,6 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 Fragment fragmentRegister = RegisterFragment.newInstance();
-                Fragment fragmentLogin = LoginFragment.newInstance();
                 fm.beginTransaction()
                         .replace(R.id.login_fragment_container, fragmentRegister)
                         .commit();
@@ -80,7 +77,29 @@ public class LoginFragment extends Fragment {
         });
     }
 
+    private void validateAndLogin() {
+        String email = mEditTextEmail.getText().toString().trim();
+        String password = mEditPassword.getText().toString().trim();
+        if (email.isEmpty()) {
+            mEditTextEmail.setError("Email is required!");
+            mEditTextEmail.requestFocus();
+            return;
+        }
+        if (password.isEmpty()) {
+            mEditPassword.setError("Password is required!");
+            mEditPassword.requestFocus();
+            return;
+        }
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            mEditTextEmail.setError("Please provide valid email");
+            mEditTextEmail.requestFocus();
+            return;
+        }
+        login(email, password);
+    }
+
     private void login(String email, String password) {
+        // firebase sign in
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
