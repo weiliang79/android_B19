@@ -70,6 +70,9 @@ public class LoginFragment extends Fragment {
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // sign out again just it case this activity started
+                // without sign out, it ain't hurt nobody
+                mAuth.signOut();
                 validateAndLogin();
             }
         });
