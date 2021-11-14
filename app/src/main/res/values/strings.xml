@@ -4,6 +4,7 @@
     <string name="loading_webview_text">Loading...</string>
     <string name="nav_home_title">Home</string>
     <string name="nav_feed_title">Feeds</string>
+    <string name="nav_logout_title">Logout</string>
     <string name="nav_feed_category_title">Feed Category</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

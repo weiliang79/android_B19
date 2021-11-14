@@ -1,17 +1,24 @@
-package com.example.android_b19.ui.setting;
+package com.example.android_b19;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.android_b19.R;
+import com.example.android_b19.ui.login.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 public class SettingFragment extends PreferenceFragmentCompat {
 
+    private FirebaseAuth mAuth;
+
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.preferences);
+
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -19,9 +26,13 @@ public class SettingFragment extends PreferenceFragmentCompat {
 
         if(preference.getKey().equals(getResources().getString(R.string.logout_key))){
             //do logout task
+            mAuth.signOut();
 
-            //need try after logout successful
-            //requireActivity().finish();
+            if (mAuth.getCurrentUser() == null) {
+                // start login flow
+                getActivity().startActivity(new Intent(getActivity(), LoginActivity.class));
+            }
+
         }
 
         return super.onPreferenceTreeClick(preference);
