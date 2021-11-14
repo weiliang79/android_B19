@@ -6,6 +6,7 @@
 
         <Preference
             android:key="@string/logout_key"
+            android:icon="@drawable/ic_baseline_logout"
             android:title="@string/logout_title" />
 
     </PreferenceCategory>

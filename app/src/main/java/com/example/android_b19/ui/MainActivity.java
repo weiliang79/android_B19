@@ -58,10 +58,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(!isNetworkAvailable()){
-            Toast.makeText(this, "Internet are not connected.", Toast.LENGTH_SHORT).show();
-        }
-
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
@@ -85,18 +81,6 @@ public class MainActivity extends AppCompatActivity {
         View headerView = navigationView.getHeaderView(0);
         tvUsername = headerView.findViewById(R.id.tvUsername);
         tvUserEmail = headerView.findViewById(R.id.tvUserEmail);
-        database.getReference("Users").child(auth.getUid()).child("fullName").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                tvUsername.setText(snapshot.getValue(String.class));
-                tvUserEmail.setText(currentUser.getEmail());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
     }
 
@@ -108,8 +92,23 @@ public class MainActivity extends AppCompatActivity {
         if(currentUser == null){
             // start login flow
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        } else {
+            Log.d("User", "" + currentUser.getEmail() + " | " + currentUser.getUid());
+
+            database.getReference("Users").child(auth.getUid()).child("fullName").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    tvUsername.setText(snapshot.getValue(String.class));
+                    tvUserEmail.setText(currentUser.getEmail());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
-        Log.d("User", "" + currentUser.getEmail() + " | " + currentUser.getUid());
+
     }
 
     public boolean isNetworkAvailable(){

@@ -45,8 +45,18 @@ public class FavFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         auth = FirebaseAuth.getInstance();
-        reference = FirebaseDatabase.getInstance().getReference("Favorites").child(Objects.requireNonNull(auth.getUid()));
+        if(auth.getCurrentUser() != null){
+            reference = FirebaseDatabase.getInstance().getReference("Favorites").child(Objects.requireNonNull(auth.getUid()));
+            loadData();
+        }
+
     }
 
     @Nullable
@@ -65,7 +75,7 @@ public class FavFragment extends Fragment {
         rvFav.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         adapter = new FavAdapter(getContext());
         rvFav.setAdapter(adapter);
-        loadData();
+
     }
 
     private void loadData(){
