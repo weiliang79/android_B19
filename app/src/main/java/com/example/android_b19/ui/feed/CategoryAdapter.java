@@ -107,6 +107,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         return categoryList == null ? 0 : categoryList.size();
     }
 
+    public boolean isHiddenManage() {
+        return isHiddenManage;
+    }
+
     interface ClickHandler{
         void editCategory(UUID categoryId, String name);
         void deleteCategory(UUID categoryId);

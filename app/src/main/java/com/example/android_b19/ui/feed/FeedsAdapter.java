@@ -95,7 +95,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.FeedViewHold
         holder.ivFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickHandler.setFeedFav(feedList.get(position).getId(), !feedList.get(position).isFav());
+                clickHandler.setFeedFav(feedList.get(position), !feedList.get(position).isFav());
             }
         });
 
@@ -121,8 +121,12 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsAdapter.FeedViewHold
         return feedList == null ? 0 : feedList.size();
     }
 
+    public boolean isHiddenManage() {
+        return isHiddenManage;
+    }
+
     interface ClickHandler{
-        void setFeedFav(UUID feedId, boolean isFav);
+        void setFeedFav(Feed feed, boolean isFav);
         void deleteFeed(UUID feedId);
     }
 

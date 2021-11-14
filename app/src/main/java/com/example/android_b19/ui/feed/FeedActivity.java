@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.HandlerThread;
 import android.util.Log;
@@ -49,6 +52,7 @@ public class FeedActivity extends AppCompatActivity implements FeedsAdapter.Clic
 
     private FirebaseAuth auth;
     private DatabaseReference reference;
+    private DatabaseReference favReference;
 
     private TextView tvEmpty;
     private RecyclerView rvFeeds;
@@ -61,11 +65,16 @@ public class FeedActivity extends AppCompatActivity implements FeedsAdapter.Clic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
+        if(!isNetworkAvailable()){
+            Toast.makeText(this, "Internet are not connected.", Toast.LENGTH_SHORT).show();
+        }
+
         Intent intent = getIntent();
         categoryId = UUID.fromString(intent.getStringExtra(CATEGORY_ID_KEY));
 
         auth = FirebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance().getReference("Feeds").child(auth.getUid()).child("Category").child(categoryId.toString()).child("Feed");
+        favReference = FirebaseDatabase.getInstance().getReference("Favorites").child(auth.getUid());
 
 
         reference.getParent().child("name").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -112,10 +121,31 @@ public class FeedActivity extends AppCompatActivity implements FeedsAdapter.Clic
         });
     }
 
+    public boolean isNetworkAvailable(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = null;
+        if(connectivityManager != null){
+            activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        }
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.feed_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        if(feedsAdapter.isHiddenManage()){
+            menu.findItem(R.id.menu_show_manage_feed).setTitle("Show Menage Option...");
+        } else {
+            menu.findItem(R.id.menu_show_manage_feed).setTitle("Hide Menage Option...");
+        }
+
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -221,8 +251,15 @@ public class FeedActivity extends AppCompatActivity implements FeedsAdapter.Clic
     }
 
     @Override
-    public void setFeedFav(UUID feedId, boolean isFav){
-        reference.child(feedId.toString()).child("isFav").setValue(isFav);
+    public void setFeedFav(Feed feed, boolean isFav){
+        reference.child(feed.getId().toString()).child("isFav").setValue(isFav);
+
+        if(isFav){
+            favReference.child(feed.getId().toString()).child("name").setValue(feed.getName());
+            favReference.child(feed.getId().toString()).child("url").setValue(feed.getUrl());
+        } else {
+            favReference.child(feed.getId().toString()).removeValue();
+        }
     }
 
     @Override

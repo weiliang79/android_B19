@@ -17,10 +17,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android_b19.R;
 import com.example.android_b19.model.User;
 import com.example.android_b19.ui.login.LoginActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private FirebaseDatabase database;
+    private FirebaseUser currentUser;
 
     private Toolbar toolbar;
     private DrawerLayout drawer;
@@ -42,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
     private NavController navController;
     private Fragment navHostFragment;
 
+    private TextView tvUsername;
+    private TextView tvUserEmail;
+
     private RecyclerView rvFeeds;
 
     @Override
@@ -49,32 +58,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(!isNetworkAvailable()){
+            Toast.makeText(this, "Internet are not connected.", Toast.LENGTH_SHORT).show();
+        }
+
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-
-        database.getReference("Users").child("sEzO6V23dAhpxlcn4DRm4BiiTE03").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    String key = snapshot.getKey();
-                    Log.e("snapshot", "" + key);
-                    User user = snapshot.getValue(User.class);
-                    Log.e("User", "" + user.getEmail());
-                    for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        Log.e("child", "" + dataSnapshot.getKey());
-                        Log.e("child", "" + dataSnapshot.getValue().toString());
-
-                    }
-                } else {
-                    Log.e("snapshot", "Not exist");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("snapshot", "canceled");
-            }
-        });
 
         //toolbar
         toolbar = findViewById(R.id.toolbar);
@@ -93,13 +82,29 @@ public class MainActivity extends AppCompatActivity {
 
         navHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
 
+        View headerView = navigationView.getHeaderView(0);
+        tvUsername = headerView.findViewById(R.id.tvUsername);
+        tvUserEmail = headerView.findViewById(R.id.tvUserEmail);
+        database.getReference("Users").child(auth.getUid()).child("fullName").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                tvUsername.setText(snapshot.getValue(String.class));
+                tvUserEmail.setText(currentUser.getEmail());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        FirebaseUser currentUser = auth.getCurrentUser();
+        currentUser = auth.getCurrentUser();
         if(currentUser == null){
             // start login flow
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
