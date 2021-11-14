@@ -1,6 +1,8 @@
-package com.example.android_b19;
+package com.example.android_b19.ui.setting;
 
 import android.os.Bundle;
+
+import com.example.android_b19.R;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;

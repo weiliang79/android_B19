@@ -1,4 +1,4 @@
-package com.example.android_b19;
+package com.example.android_b19.ui.feed.article;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.example.android_b19.R;
 
 public class WebViewActivity extends AppCompatActivity {
 

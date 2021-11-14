@@ -2,21 +2,21 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_fav">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.android_b19.HomeFragment"
-        android:label="@string/nav_home_title" />
+        android:id="@+id/nav_fav"
+        android:name="com.example.android_b19.ui.home.FavFragment"
+        android:label="@string/nav_fav_title" />
 
     <fragment
         android:id="@+id/nav_feeds"
-        android:name="com.example.android_b19.FeedFragment"
-        android:label="@string/nav_feed_title" />
+        android:name="com.example.android_b19.ui.feed.CategoryFragment"
+        android:label="@string/nav_feed_category_title" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.example.android_b19.SettingFragment"
+        android:name="com.example.android_b19.ui.setting.SettingFragment"
         android:label="@string/setting_nav_title" />
 
 </navigation>

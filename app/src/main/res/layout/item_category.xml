@@ -15,43 +15,30 @@
         >
 
         <TextView
-            android:id="@+id/tvFeedTitle"
-            android:layout_width="0dp"
+            android:id="@+id/tvCategoryTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="test"
-            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/ivFavFeed"/>
-
-        <TextView
-            android:id="@+id/tvFeedUrl"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="test"
-            app:layout_constraintTop_toBottomOf="@+id/tvFeedTitle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/ivDeleteFeed"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <ImageView
-            android:id="@+id/ivFavFeed"
+            android:id="@+id/ivEditCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/ivDeleteFeed"
+            app:layout_constraintBottom_toTopOf="@+id/ivDeleteCategory"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/ic_baseline_star" />
+            android:src="@drawable/ic_baseline_edit" />
 
         <ImageView
-            android:id="@+id/ivDeleteFeed"
+            android:id="@+id/ivDeleteCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/ivFavFeed"
+            app:layout_constraintTop_toBottomOf="@+id/ivEditCategory"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/ic_baseline_delete" />

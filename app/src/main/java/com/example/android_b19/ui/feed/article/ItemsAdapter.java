@@ -1,4 +1,4 @@
-package com.example.android_b19;
+package com.example.android_b19.ui.feed.article;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.android_b19.R;
 import com.prof.rssparser.Article;
 
 import java.text.ParseException;

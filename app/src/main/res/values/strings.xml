@@ -4,10 +4,23 @@
     <string name="loading_webview_text">Loading...</string>
     <string name="nav_home_title">Home</string>
     <string name="nav_feed_title">Feeds</string>
+    <string name="nav_feed_category_title">Feed Category</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="account_title">Account</string>
     <string name="logout_title">Logout</string>
     <string name="logout_key">logout</string>
     <string name="setting_nav_title">Settings</string>
+    <string name="add_new_category_title">Add Category</string>
+    <string name="show_manage_title">Show Manage Options...</string>
+    <string name="dialog_hint_category_name">Enter Category Name</string>
+    <string name="category_name_empty_toast">The input are empty</string>
+    <string name="category_list_empty">List are empty</string>
+    <string name="delete_warning_title">Warning</string>
+    <string name="delete_warning_msg">Are you sure want to delete?</string>
+    <string name="edit_category_title">Edit Category</string>
+    <string name="add_new_feed_title">Add Feed</string>
+    <string name="dialog_hint_feed_link">http://www.example.com/rss</string>
+    <string name="new_feed_error">Not a vaild URL</string>
+    <string name="nav_fav_title">Favorites</string>
 </resources>

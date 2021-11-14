@@ -1,4 +1,4 @@
-package com.example.android_b19;
+package com.example.android_b19.ui.feed.article;
 
 import android.content.Context;
 import android.widget.Toast;

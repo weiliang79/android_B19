@@ -8,14 +8,14 @@
         <item android:title="@string/nav_feed_title">
             <menu>
                 <item
-                    android:id="@+id/nav_home"
-                    android:icon="@drawable/ic_baseline_home"
-                    android:title="@string/nav_home_title" />
+                    android:id="@+id/nav_fav"
+                    android:icon="@drawable/ic_baseline_star"
+                    android:title="@string/nav_fav_title" />
 
                 <item
                     android:id="@+id/nav_feeds"
                     android:icon="@drawable/ic_baseline_rss_feed"
-                    android:title="@string/nav_feed_title" />
+                    android:title="@string/nav_feed_category_title" />
             </menu>
         </item>
 
