@@ -109,9 +109,9 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.ClickH
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
 
         if(categoryAdapter.isHiddenManage()){
-            menu.findItem(R.id.menu_show_manage_category).setTitle("Show Menage Option...");
+            menu.findItem(R.id.menu_show_manage_category).setTitle("Show Manage Option...");
         } else {
-            menu.findItem(R.id.menu_show_manage_category).setTitle("Hide Menage Option...");
+            menu.findItem(R.id.menu_show_manage_category).setTitle("Hide Manage Option...");
         }
 
         super.onPrepareOptionsMenu(menu);

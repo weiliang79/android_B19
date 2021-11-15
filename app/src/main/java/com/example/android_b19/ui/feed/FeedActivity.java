@@ -140,9 +140,9 @@ public class FeedActivity extends AppCompatActivity implements FeedsAdapter.Clic
     public boolean onPrepareOptionsMenu(Menu menu) {
 
         if(feedsAdapter.isHiddenManage()){
-            menu.findItem(R.id.menu_show_manage_feed).setTitle("Show Menage Option...");
+            menu.findItem(R.id.menu_show_manage_feed).setTitle("Show Manage Option...");
         } else {
-            menu.findItem(R.id.menu_show_manage_feed).setTitle("Hide Menage Option...");
+            menu.findItem(R.id.menu_show_manage_feed).setTitle("Hide Manage Option...");
         }
 
         return super.onPrepareOptionsMenu(menu);
