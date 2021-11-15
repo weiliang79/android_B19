@@ -24,4 +24,6 @@
     <string name="dialog_hint_feed_link">http://www.example.com/rss</string>
     <string name="new_feed_error">Not a vaild URL</string>
     <string name="nav_fav_title">Favorites</string>
+    <string name="login_title">Login</string>
+    <string name="register_title">Register</string>
 </resources>

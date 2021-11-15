@@ -50,6 +50,8 @@ public class LoginFragment extends Fragment {
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
+        requireActivity().setTitle(requireActivity().getResources().getString(R.string.login_title));
     }
 
     @Override

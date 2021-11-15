@@ -43,6 +43,8 @@ public class RegisterFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
+
+        requireActivity().setTitle(requireActivity().getResources().getString(R.string.register_title));
     }
 
     @Override
